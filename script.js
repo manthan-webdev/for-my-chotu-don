@@ -134,14 +134,29 @@ if (
 // MUSIC SYSTEM
 // ==========================================================
 
+// ==========================================================
+// MUSIC SYSTEM
+// ==========================================================
+
 const audio = $('#bgMusic');
 const playBtn = $('#playBtn');
 const playerBox = $('#player');
 
+
+// ----------------------------------------------------------
+// SETTINGS
+// ----------------------------------------------------------
+
 audio.volume = 0.6;
 
+let userPaused = false;
+let musicStarted = false;
 
-// Update music UI
+
+// ----------------------------------------------------------
+// UPDATE MUSIC UI
+// ----------------------------------------------------------
+
 const syncMusicUI = () => {
 
     const isPlaying = !audio.paused;
@@ -169,38 +184,56 @@ const syncMusicUI = () => {
 };
 
 
-// Try playing music
+// ----------------------------------------------------------
+// PLAY MUSIC
+// ----------------------------------------------------------
+
 const playMusic = () => {
+
+    if (!audio) return;
 
     const promise = audio.play();
 
-    if (promise) {
+    if (promise !== undefined) {
 
         promise
-            .then(syncMusicUI)
+            .then(() => {
+
+                musicStarted = true;
+
+                syncMusicUI();
+
+            })
             .catch(() => {
 
                 // Browser blocked autoplay.
-                // Music will start after user's first interaction.
+                // We will try again on the first
+                // interaction anywhere on the website.
 
                 syncMusicUI();
 
             });
-
-    } else {
-
-        syncMusicUI();
 
     }
 
 };
 
 
-// Keep UI synchronized
+// ----------------------------------------------------------
+// AUDIO EVENTS
+// ----------------------------------------------------------
+
 audio.addEventListener(
     'play',
-    syncMusicUI
+    () => {
+
+        musicStarted = true;
+
+        syncMusicUI();
+
+    }
 );
+
 
 audio.addEventListener(
     'pause',
@@ -208,73 +241,120 @@ audio.addEventListener(
 );
 
 
-// Try autoplay
+audio.addEventListener(
+    'ended',
+    syncMusicUI
+);
+
+
+// ----------------------------------------------------------
+// TRY AUTOPLAY IMMEDIATELY
+// ----------------------------------------------------------
+
+// As soon as website opens,
+// try to start the song.
+
 playMusic();
 
 
-// ==========================================================
-// AUTOPLAY FALLBACK
-// Browser may block autoplay with sound.
-// Start music after first interaction.
-// ==========================================================
+// ----------------------------------------------------------
+// START MUSIC ON ANY FIRST USER INTERACTION
+// ----------------------------------------------------------
 
-let userPaused = false;
+// IMPORTANT:
+//
+// User does NOT need to click the music button.
+//
+// Any of these will start the music:
+//
+// • Click anywhere
+// • Tap anywhere
+// • Press any key
+//
+// This is only needed if browser blocked autoplay.
+//
 
-const firstInteraction = () => {
+const startMusicAfterInteraction = () => {
 
-    [
-        'pointerdown',
-        'keydown',
-        'touchstart'
-    ].forEach(eventName => {
+    if (
+        !userPaused &&
+        audio.paused
+    ) {
 
-        removeEventListener(
-            eventName,
-            firstInteraction
-        );
-
-    });
-
-    if (!userPaused) {
         playMusic();
+
     }
+
+    // Remove listeners after first interaction
+    removeEventListener(
+        'pointerdown',
+        startMusicAfterInteraction
+    );
+
+    removeEventListener(
+        'touchstart',
+        startMusicAfterInteraction
+    );
+
+    removeEventListener(
+        'keydown',
+        startMusicAfterInteraction
+    );
 
 };
 
 
-[
+// Listen for ANY interaction on website
+
+addEventListener(
     'pointerdown',
+    startMusicAfterInteraction,
+    {
+        passive: true
+    }
+);
+
+
+addEventListener(
+    'touchstart',
+    startMusicAfterInteraction,
+    {
+        passive: true
+    }
+);
+
+
+addEventListener(
     'keydown',
-    'touchstart'
-].forEach(eventName => {
-
-    addEventListener(
-        eventName,
-        firstInteraction,
-        {
-            passive: true
-        }
-    );
-
-});
+    startMusicAfterInteraction,
+    {
+        passive: true
+    }
+);
 
 
-// ==========================================================
-// MUSIC PLAY / PAUSE BUTTON
-// ==========================================================
+// ----------------------------------------------------------
+// MUSIC BUTTON
+// ----------------------------------------------------------
 
 playBtn.onclick = event => {
 
+    // Don't let this click trigger
+    // other page interactions.
+
     event.stopPropagation();
+
 
     if (audio.paused) {
 
+        // User wants music again
         userPaused = false;
 
         playMusic();
 
     } else {
 
+        // User manually paused music
         userPaused = true;
 
         audio.pause();
@@ -284,9 +364,9 @@ playBtn.onclick = event => {
 };
 
 
-// ==========================================================
-// VOLUME
-// ==========================================================
+// ----------------------------------------------------------
+// VOLUME CONTROL
+// ----------------------------------------------------------
 
 $('#vol').oninput = event => {
 
