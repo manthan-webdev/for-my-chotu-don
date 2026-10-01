@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hear Me Out</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<!--
+==================== PERSONAL CONTENT ====================
+Everything you need to edit is in this file. Search (Ctrl+F) for the words in CAPS:
+ 1. Best friend's name ........ <body data-name="..."> just below this comment
+ 2. Hero message .............. "EDIT HERO"
+ 3. Four apology cards ........ "CHANGE CARD 1/2/3/4 TEXT HERE" (short text on the note + full message inside <div class="full">)
+ 4. Three photos .............. "CHANGE MEMORY PHOTO 1/2/3 HERE" (or just replace the files in assets/images/)
+ 5. Three photo captions ...... "CHANGE PHOTO CAPTION HERE"
+ 6. Friendship Court text ..... "EDIT COURT"  (button replies live in script.js, search "COURT REPLIES")
+ 7. Final letter .............. "CHANGE FINAL MESSAGE HERE"
+ 8. Music file ................ replace assets/music/song.mp3 (or edit the <source> in "EDIT MUSIC")
+===========================================================
+-->
+
+<body data-name="Chotu Don">
+    <div id="fx" aria-hidden="true"></div>
+    <div id="glow" aria-hidden="true"></div>
+
+    <span class="tag">For My <span class="fname">Chotu Don</span> ♡</span>
+
+    <!-- EDIT MUSIC: put your song at assets/music/song.mp3 -->
+    <div class="player" id="player">
+        <audio id="bgMusic" loop preload="auto">
+            <source src="assets/music/song.mp3" type="audio/mpeg">
+        </audio>
+        <button id="playBtn" aria-label="Play music" aria-pressed="false">♪</button>
+        <div class="pinfo"><b>Playing for you...</b><small>A special song ♡</small></div>
+        <input id="vol" type="range" min="0" max="1" step="0.05" value="0.6" aria-label="Volume">
+    </div>
+
+    <main>
+        <!-- 1. HERO -->
+        <section class="hero" id="hero">
+            <div class="reveal">
+                <!-- EDIT HERO -->
+                <h1>I know you're mad at me...</h1>
+                <p class="hand">and honestly, I know I messed up 🥺</p>
+                <p class="lead">But before you officially cancel my Chotu membership,<br>
+                    just give me one tiny chance to make you smile...</p>
+                <button class="btn" data-scroll="#notes">Okay, let's fix this → </button>
+            </div>
+        </section>
+
+        <!-- 2. APOLOGY LETTERS -->
+        <section id="notes">
+            <div class="head reveal">
+                <h2>Things I Should've Told You ♡</h2>
+                <p>Maybe I should've said these sooner...<br>
+                    but better late than never, Chotu Don..</p>
+            </div>
+            <div class="notes">
+                <!-- CHANGE CARD 1 TEXT HERE -->
+                <button class="note reveal" style="--r:-2deg">
+                    <h3>Okay... I'm Sorry</h3>
+                    <p class="hand">Is baar sach mein wali sorry. 🥺</p>
+
+                    <div class="full" hidden>
+                        Haan Chotu Don, galti meri thi. 😭
+                        Main justify karne nahi aaya, bas genuinely sorry bolne aaya hoon.
+                        Jo hua usse tujhe bura laga, aur mujhe uska genuinely regret hai.
+                    </div>
+                </button>
+
+                <!-- CHANGE CARD 2 TEXT HERE -->
+                <button class="note reveal" style="--r:1deg">
+                    <h3>Miss Our Bakchodi</h3>
+                    <p class="hand">Tere bina sab boring sa hai. 😭</p>
+
+                    <div class="full" hidden>
+                        No random talks, no stupid jokes, no faltu ke arguments,
+                        aur sabse important — meri daily wali Chotu Don ki bakchodi missing hai. 😂
+                        Sach bolu toh friendship ka entertainment department band pada hai.
+                    </div>
+                </button>
+
+                <!-- CHANGE CARD 3 TEXT HERE -->
+                <button class="note reveal" style="--r:-1deg">
+                    <h3>I Know I Messed Up</h3>
+                    <p class="hand">Aur haan, excuse nahi hai mere paas.</p>
+
+                    <div class="full" hidden>
+                        Mujhe pata hai meri wajah se tu hurt hui.
+                        Shayad main us time cheezon ko samajh nahi paaya,
+                        but ab samajh raha hoon ki meri galti thi.
+                        Bas chahta hoon ki tu mujhe ek chance de things theek karne ka.
+                    </div>
+                </button>
+
+                <!-- CHANGE CARD 4 TEXT HERE -->
+                <button class="note reveal" style="--r:2deg">
+                    <h3>Tu Important Hai</h3>
+                    <p class="hand">Isliye itna bada apology project bana diya. 😭</p>
+
+                    <div class="full" hidden>
+                        Tu mere liye genuinely important hai, Chotu Don.
+                        Isliye tera gussa bhi matter karta hai aur tera smile karna bhi.
+                        Bas ek baar maan ja na...
+                        warna mujhe aur kitni websites banani padengi? 😭😂
+                    </div>
+                </button>
+
+            </div>
+            <div class="section-next">
+                <button class="btn ghost next-btn" data-scroll="#memories">Next: Our Memories →</button>
+            </div>
+        </section>
+
+        <!-- 3. THREE MEMORIES -->
+        <section id="memories">
+            <div class="head reveal">
+                <h2>Some Memories I'm Not Ready to Lose ♡</h2>
+                <p>Just three little reminders of how stupidly amazing we are together.</p>
+            </div>
+            <div class="polas">
+                <!-- CHANGE MEMORY PHOTO 1 HERE -->
+                <figure class="pola reveal" style="--r:-4deg">
+                    <div class="ph"><img src="assets/images/memory-1.jpg" alt="Memory 1"
+                            onerror="this.style.visibility='hidden'"></div>
+                    <!-- CHANGE PHOTO CAPTION HERE -->
+                    <figcaption class="hand">That random day... still makes me smile ♡</figcaption>
+                </figure>
+                <!-- CHANGE MEMORY PHOTO 2 HERE -->
+                <figure class="pola big reveal" style="--r:1.5deg">
+                    <div class="ph"><img src="assets/images/memory-2.jpg" alt="Memory 2"
+                            onerror="this.style.visibility='hidden'"></div>
+                    <!-- CHANGE PHOTO CAPTION HERE -->
+                    <figcaption class="hand">Different moments, same crazy us.</figcaption>
+                </figure>
+                <!-- CHANGE MEMORY PHOTO 3 HERE -->
+                <figure class="pola reveal" style="--r:3deg">
+                    <div class="ph"><img src="assets/images/memory-3.jpg" alt="Memory 3"
+                            onerror="this.style.visibility='hidden'"></div>
+                    <!-- CHANGE PHOTO CAPTION HERE -->
+                    <figcaption class="hand">Our stupid little adventures.</figcaption>
+                </figure>
+            </div>
+            <div class="section-next">
+                <button class="btn ghost next-btn" data-scroll="#court">Next: The Court →</button>
+            </div>
+        </section>
+
+        <!-- 4. FRIENDSHIP COURT -->
+        <section id="court">
+            <div class="head reveal">
+                <h2>The Court of Chotu...♡</h2>
+                <p>Case No. 001 — Making Chotu Don gussa..</p>
+            </div>
+            <div class="court reveal">
+                <svg class="cat" viewBox="0 0 120 120" aria-hidden="true">
+                    <path d="M22 40 L30 10 L52 28 M98 40 L90 10 L68 28" fill="#3a2128" stroke="#F3B6C3"
+                        stroke-width="2.5" stroke-linejoin="round" />
+                    <ellipse cx="60" cy="62" rx="40" ry="34" fill="#3a2128" stroke="#F3B6C3" stroke-width="2.5" />
+                    <path d="M40 58 q6 -6 12 0 M68 58 q6 -6 12 0" fill="none" stroke="#FFF3EC" stroke-width="3"
+                        stroke-linecap="round" />
+                    <path d="M55 74 q5 5 10 0" fill="none" stroke="#FFF3EC" stroke-width="2.5" stroke-linecap="round" />
+                    <rect x="38" y="88" width="44" height="28" rx="3" fill="#FFF3EC" transform="rotate(-4 60 100)" />
+                    <text x="60" y="107" text-anchor="middle" font-family="Caveat" font-size="15" fill="#351820"
+                        transform="rotate(-4 60 100)">Guilty ♡</text>
+                </svg>
+                <!-- EDIT COURT -->
+
+                <dt>Accused</dt>
+                <dd>Me 🫠</dd>
+
+                <dt>Victim</dt>
+                <dd>Our Chotu Don 😤</dd>
+
+                <dt>Crime</dt>
+                <dd>Making Chotu Don angry</dd>
+
+                <dt>Evidence</dt>
+                <dd>Unfortunately... everything 😭</dd>
+
+                <dt>Excuse</dt>
+                <dd>None. Galti meri thi. 🥲</dd>
+
+                <dt>Punishment</dt>
+                <dd>To be decided by Chotu Don 👩‍⚖️</dd>
+
+                </dl>
+
+                <div class="verdicts">
+                    <button class="btn" data-v="forgive">Forgive me 🥺</button>
+                    <button class="btn ghost" data-v="notyet">Not yet 😤</button>
+                    <button class="btn ghost" data-v="life">Lifetime punishment 💀</button>
+                </div>
+                <p class="verdict hand" id="verdict" aria-live="polite"></p>
+            </div>
+            <div class="section-next">
+                <button class="btn ghost next-btn" data-scroll="#final">Next: One Last Thing →</button>
+            </div>
+        </section>
+
+        <!-- 5. FINAL SURPRISE -->
+        <section id="final">
+
+            <div class="head reveal final-intro">
+                <h2>Okay... one last thing ♡</h2>
+                <p>You made it this far. Now open this, Chotu Don.</p>
+            </div>
+
+            <div class="envwrap reveal">
+
+                <button class="env" id="env" aria-label="Open the envelope">
+
+                    <span class="letter">
+                        <span class="lt">A little letter for you</span>
+                    </span>
+
+                    <span class="flap"></span>
+                    <span class="front"></span>
+
+                    <span class="seal">♡</span>
+
+                    <span class="etext hand">
+                        Open this... if you're still angry with me ♡
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- CHANGE FINAL MESSAGE HERE -->
+
+            <div class="final" id="finalMsg">
+
+                <h2>One Last Thing, Chotu Don... ♡</h2>
+
+                <p class="big">
+                    I know one sorry can't magically fix everything,
+                    but I genuinely don't want this silly fight
+                    to become a reason for us to stay distant.
+                </p>
+
+                <p class="hand">
+                    Tu gussa reh sakti hai...<br>
+                    thoda attitude bhi dikha sakti hai 😤<br>
+                    but please zyada der tak nahi. 🥺
+                </p>
+
+                <button class="btn" id="okBtn">
+                    Okay... ab maan bhi jao na 🥺
+                </button>
+
+                <p class="hand thanks" id="thanks"></p>
+
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Note modal -->
+    <div class="modal" id="modal" hidden>
+        <div class="paper" role="dialog" aria-modal="true"><button class="x" data-close aria-label="Close">×</button>
+            <h3 id="mTitle"></h3>
+            <p id="mText"></p>
+        </div>
+    </div>
+    <!-- Lightbox -->
+    <div class="modal lb" id="lb" hidden>
+        <button class="x" data-close aria-label="Close">×</button>
+        <button class="nav prev" aria-label="Previous">‹</button>
+        <img id="lbImg" alt="">
+        <button class="nav next" aria-label="Next">›</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
